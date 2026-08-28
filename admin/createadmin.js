@@ -16,7 +16,7 @@ async function createAdmin() {
             'INSERT INTO admins (username, password) VALUES (?, ?) ON DUPLICATE KEY UPDATE password = ?',
             [username, hashedPassword, hashedPassword]
         );
-        console.log(`Admin "${username}" berhasil dibuat / diperbarui!`);
+        
     } catch (error) {
         console.error('Gagal membuat admin:', error);
     } finally {

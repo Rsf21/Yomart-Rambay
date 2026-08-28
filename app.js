@@ -6,17 +6,17 @@ import route from './routes/route.js';
 import { initDatabase } from './database/init.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
-// Inisialisasi Struktur Tabel Database
+
 initDatabase();
 
-// Konfigurasi Database Session MySQL
+
 const option = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT || 3306,
+    port: process.env.DB_PORT,
     database: process.env.DB_NAME
 };
 
@@ -32,12 +32,12 @@ app.set('trust proxy', 1);
 
 // Konfigurasi Session
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'secret-key-yomart-666',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: sessionstore,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // 1 hari
+        maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
         sameSite: 'lax'
     }

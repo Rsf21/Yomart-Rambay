@@ -8,9 +8,6 @@ import { login } from '../controllers/authcontrollers.js';
 
 const route = express.Router();
 
-// ==========================================
-// KONFIGURASI ENVIRONMENT (.ENV)
-// ==========================================
 const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH
 const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH
 const ADMIN_WA_NUMBER = process.env.ADMIN_WA_NUMBER
@@ -182,9 +179,7 @@ route.get('/about', (req, res) => {
     });
 });
 
-// ==========================================
-// 2. ROUTE AUTENTIKASI ADMIN
-// ==========================================
+
 route.get(ADMIN_LOGIN_PATH, (req, res) => {
     if (req.session && req.session.adminId) {
         return res.redirect(ADMIN_DASHBOARD_PATH);
@@ -212,9 +207,7 @@ route.get('/logout', (req, res) => {
     }
 });
 
-// ==========================================
-// 3. ROUTE DASHBOARD ADMIN
-// ==========================================
+
 route.get(ADMIN_DASHBOARD_PATH, requireAuth, preventCache, async (req, res) => {
     try {
         const [products] = await db.query('SELECT * FROM products ORDER BY id DESC');
@@ -245,9 +238,6 @@ route.get(ADMIN_DASHBOARD_PATH, requireAuth, preventCache, async (req, res) => {
     }
 });
 
-// ==========================================
-// 4. KELOLA EVENT
-// ==========================================
 route.post('/admin/events/add', requireAuth, upload.single('image'), async (req, res) => {
     try {
         const { title, period, description } = req.body;
@@ -287,9 +277,6 @@ route.post('/admin/events/delete/:id', requireAuth, async (req, res) => {
     }
 });
 
-// ==========================================
-// 5. KELOLA BANNER KATEGORI PROMO
-// ==========================================
 route.post('/admin/banner/upload/:type', requireAuth, upload.single('image'), async (req, res) => {
     try {
         const { type } = req.params;
@@ -337,8 +324,6 @@ route.post('/admin/banner/delete/:type', requireAuth, async (req, res) => {
 });
 
 // ==========================================
-// 6. KELOLA ULASAN
-// ==========================================
 route.post('/admin/reviews/upload', requireAuth, upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {
@@ -377,9 +362,7 @@ route.post('/admin/reviews/delete/:id', requireAuth, async (req, res) => {
     }
 });
 
-// ==========================================
-// 7. KELOLA PRODUK
-// ==========================================
+
 route.post('/admin/products/add', requireAuth, upload.single('image'), async (req, res) => {
     try {
         const { name, category, sub_category, price, original_price, myyogya_price, promo_end, description } = req.body;
