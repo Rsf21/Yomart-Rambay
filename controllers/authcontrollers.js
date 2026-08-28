@@ -2,13 +2,13 @@ import bcrypt from 'bcrypt';
 import db from '../database/db.js';
 
 export const login = async (req, res) => {
-    const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH || '/bar4ccudaxxx';
-    const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH || '/b4rracudax666xxx';
+    const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH 
+    const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH
 
     try {
         const { username, password } = req.body;
 
-        // 1. Validasi input kosong
+        
         if (!username || !password) {
             return res.status(400).render('login', {
                 title: 'Form Login Admin',
@@ -18,7 +18,7 @@ export const login = async (req, res) => {
             });
         }
 
-        // 2. Cari admin di database
+        
         const [users] = await db.query(
             'SELECT * FROM admins WHERE username = ? LIMIT 1',
             [username.trim()]
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
 
         const user = users[0];
 
-        // 3. Cek kecocokan password hash bcrypt
+        
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
@@ -47,7 +47,7 @@ export const login = async (req, res) => {
             });
         }
 
-        // 4. Regenerasi Sesi untuk mencegah Session Fixation
+        
         req.session.regenerate((err) => {
             if (err) {
                 console.error('Gagal regenerasi sesi:', err);
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
                 });
             }
 
-            // Simpan data sesi baru
+            
             req.session.adminId = user.id;
             req.session.username = user.username;
 
@@ -85,13 +85,13 @@ export const login = async (req, res) => {
 
 
 export const logout = (req, res) => {
-    const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH || '/bar4ccudaxxx';
+    const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH
     
     req.session.destroy((err) => {
         if (err) {
             console.error('Gagal menghancurkan sesi:', err);
         }
-        res.clearCookie('connect.sid'); // Bersihkan cookie session browser
+        res.clearCookie('connect.sid');
         res.redirect(ADMIN_LOGIN_PATH);
     });
 };
