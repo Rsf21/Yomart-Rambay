@@ -2,9 +2,12 @@ import 'dotenv/config';
 import db from '../database/db.js';
 import bcrypt from 'bcrypt';
 
-// Ambil username & password dari .env (aman, tidak akan terlihat di GitHub)
-const username = process.env.ADMIN_USERNAME || 'RedHat66';
-const password = process.env.ADMIN_PASSWORD || '001933001928';
+const username = process.env.ADMIN_USERNAME;
+const password = process.env.ADMIN_PASSWORD;
+
+if (!username || !password) {
+    process.exit(1);
+}
 
 async function createAdmin() {
     try {
@@ -13,9 +16,9 @@ async function createAdmin() {
             'INSERT INTO admins (username, password) VALUES (?, ?) ON DUPLICATE KEY UPDATE password = ?',
             [username, hashedPassword, hashedPassword]
         );
-        console.log(`✅ Admin "${username}" berhasil dibuat / diperbarui!`);
+        console.log(`Admin "${username}" berhasil dibuat / diperbarui!`);
     } catch (error) {
-        console.error('❌ Gagal membuat admin:', error);
+        console.error('Gagal membuat admin:', error);
     } finally {
         await db.end();
         process.exit();
