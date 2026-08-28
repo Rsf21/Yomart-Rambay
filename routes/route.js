@@ -11,9 +11,9 @@ const route = express.Router();
 // ==========================================
 // KONFIGURASI ENVIRONMENT (.ENV)
 // ==========================================
-const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH || '/bar4ccudaxxx';
-const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH || '/b4rracudax666xxx';
-const ADMIN_WA_NUMBER = process.env.ADMIN_WA_NUMBER || '6281572241163';
+const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH
+const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH
+const ADMIN_WA_NUMBER = process.env.ADMIN_WA_NUMBER
 
 // ==========================================
 // KONFIGURASI MULTER
