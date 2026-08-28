@@ -1,9 +1,10 @@
 import 'dotenv/config';
-import db from './database/db.js';
+import db from '../database/db.js';
 import bcrypt from 'bcrypt';
 
-const username = 'RedHat66';
-const password = '001933001928';
+// Ambil username & password dari .env (aman, tidak akan terlihat di GitHub)
+const username = process.env.ADMIN_USERNAME || 'RedHat66';
+const password = process.env.ADMIN_PASSWORD || '001933001928';
 
 async function createAdmin() {
     try {
