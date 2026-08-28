@@ -63,7 +63,7 @@ export const login = async (req, res) => {
             req.session.adminId = user.id;
             req.session.username = user.username;
 
-            // Pastikan sesi tersimpan ke MySQL sebelum redirect
+            
             req.session.save((saveErr) => {
                 if (saveErr) {
                     console.error('Gagal menyimpan sesi ke database:', saveErr);
@@ -83,7 +83,7 @@ export const login = async (req, res) => {
     }
 };
 
-// Bonus: Kamu juga bisa satukan fungsi logout di sini
+
 export const logout = (req, res) => {
     const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH || '/bar4ccudaxxx';
     
