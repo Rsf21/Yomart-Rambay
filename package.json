@@ -1,0 +1,28 @@
+{
+  "name": "yomart-rambay",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bootstrap-icons": "^1.13.1",
+    "compression": "^1.8.1",
+    "dotenv": "^17.4.2",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "express-mysql-session": "^3.0.3",
+    "express-rate-limit": "^8.6.2",
+    "express-session": "^1.19.0",
+    "helmet": "^8.3.0",
+    "multer": "^2.2.0",
+    "mysql2": "^3.11.0",
+    "validator": "^13.15.35"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

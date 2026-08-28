@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+
+    <!-- Bootstrap 5.3.3 & Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* EFEK MUNCUL PUDAR SMOOTH SAAT DI-SCROLL */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-burger-custom {
+            border: none;
+            background: transparent;
+            padding: 4px 6px;
+            color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-burger-icon {
+            font-size: 1.75rem;
+            line-height: 1;
+            color: #111111;
+        }
+        .btn-theme-toggle {
+            border: 1px solid #dee2e6;
+            background-color: transparent;
+            color: #495057;
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.25s ease;
+        }
+        .btn-theme-toggle:hover {
+            background-color: rgba(0,0,0,0.05);
+            color: #1b7a42;
+        }
+
+        .event-card {
+            border-radius: 16px;
+            border: 1px solid #eaeaea;
+            background-color: #ffffff;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+        }
+
+        .event-card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: #f8f9fa;
+        }
+
+        .btn-wa {
+            background-color: #25D366;
+            border-color: #25D366;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        .btn-wa:hover {
+            background-color: #20ba5a;
+            border-color: #20ba5a;
+            color: #ffffff;
+        }
+
+        .footer-yomart {
+            background-color: #1b7a42;
+            color: #ffffff;
+            border-top: 3px solid #145a32;
+        }
+
+        [data-bs-theme="dark"] body {
+            background-color: #121417 !important;
+            color: #e2e8f0;
+        }
+        [data-bs-theme="dark"] .navbar {
+            background-color: #1a1f26 !important;
+            border-bottom: 1px solid #2d3748;
+        }
+        [data-bs-theme="dark"] .btn-burger-custom,
+        [data-bs-theme="dark"] .btn-burger-icon {
+            color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] .btn-theme-toggle {
+            border-color: #374151;
+            color: #fbbf24;
+        }
+        [data-bs-theme="dark"] .event-card {
+            background-color: #1a1f26;
+            border-color: #2d3748;
+            color: #ffffff;
+        }
+        [data-bs-theme="dark"] .event-card-img {
+            background-color: #232932;
+        }
+        [data-bs-theme="dark"] .footer-yomart {
+            background-color: #0d381e;
+            border-top: 3px solid #072011;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<% 
+    const adminWhatsApp = locals.adminWhatsAppNumber || '6281572241163';
+    const activeEvents = locals.events || [];
+
+    const feedbackText = 'Halo Yomart Rambay, saya ingin memberikan kritik / saran / feedback mengenai layanan toko.';
+    const waFeedbackLink = `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(feedbackText)}`;
+%>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
+    <div class="container d-flex align-items-center justify-content-between">
+        
+        <!-- LOGO YOMART -->
+        <a class="navbar-brand py-1" href="/">
+            <img src="/image/logo_yomart.png" alt="Yomart" style="height: 38px; width: auto;" onerror="this.onerror=null; this.src='https://placehold.co/120x38/1b7a42/ffffff?text=YOMART';">
+        </a>
+
+        <!-- AREA KANAN: DARK MODE + BURGER TOGGLER -->
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+            <button id="themeToggleBtn" class="btn-theme-toggle" type="button" aria-label="Toggle Theme" title="Ganti Mode Gelap/Terang">
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+
+            <button class="btn-burger-custom d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-label="Toggle navigation">
+                <i class="bi bi-list btn-burger-icon"></i>
+            </button>
+        </div>
+
+        <!-- MENU LINK NAVBAR -->
+        <div class="collapse navbar-collapse order-lg-2" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Katalog Promo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active fw-bold text-success" href="/event">Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Me</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= waFeedbackLink %>" target="_blank">
+                        <i class="bi bi-chat-dots me-1"></i> Feedback
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<!-- KONTEN UTAMA EVENT -->
+<div class="container my-3 my-md-4 flex-grow-1">
+
+    <!-- TOMBOL KEMBALI -->
+    <div class="mb-3 reveal-on-scroll">
+        <a href="/" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Kembali ke Menu Utama
+        </a>
+    </div>
+
+    <div class="text-center mb-4 reveal-on-scroll">
+        <h3 class="fw-bold fs-4 fs-md-3">
+            Berbagai Event Menarik Yang Bisa Kamu Ikuti
+        </h3>
+    </div>
+
+    <% if (activeEvents.length > 0) { %>
+        
+        <!-- DAFTAR SEMUA EVENT (FADE IN PADA TIAP CARD) -->
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+            <% activeEvents.forEach(ev => { %>
+                <% 
+                    const textWAEvent = `Halo Yomart Rambay, saya ingin tanya info event:\n\n*${ev.title}*`;
+                    const linkWAEvent = `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(textWAEvent)}`;
+                %>
+                <div class="col reveal-on-scroll">
+                    <div class="card event-card shadow-sm h-100">
+                        <img src="/image/<%= ev.image %>" class="event-card-img" alt="<%= ev.title %>" onerror="this.onerror=null; this.src='https://placehold.co/600x300/1b7a42/ffffff?text=Event+Yomart';">
+                        <div class="card-body d-flex flex-column justify-content-between p-3 p-md-4">
+                            <div>
+                                <% if (ev.period) { %>
+                                    <div class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 mb-2 py-1 px-2">
+                                        <i class="bi bi-calendar-event me-1"></i> <%= ev.period %>
+                                    </div>
+                                <% } %>
+                                <h5 class="card-title fw-bold fs-5 mb-2"><%= ev.title %></h5>
+                                <p class="card-text text-muted small" style="line-height: 1.6;"><%= ev.description || '-' %></p>
+                            </div>
+                            <div class="mt-3">
+                                <a href="<%= linkWAEvent %>" target="_blank" class="btn btn-wa w-100 py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-whatsapp"></i> Tanya Info Event
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+    <% } else { %>
+        <div class="card event-card shadow-sm p-5 text-center my-4 reveal-on-scroll">
+            <div class="fs-1 text-muted mb-2">🎪</div>
+            <h5 class="fw-bold">Belum Ada Event Aktif Saat Ini</h5>
+            <p class="text-muted small mb-3">Nantikan event dan promo menarik selanjutnya di Yomart Rambay!</p>
+            <div>
+                <a href="/" class="btn btn-success btn-sm px-3">
+                    <i class="bi bi-basket me-1"></i> Lihat Katalog Promo
+                </a>
+            </div>
+        </div>
+    <% } %>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-yomart py-4 mt-auto reveal-on-scroll">
+    <div class="container">
+        <div class="row gy-3 text-start align-items-start">
+            <div class="col-12 col-md-7">
+                <h6 class="text-white fw-bold mb-2 fs-6">
+                    <i class="bi bi-pin-map-fill me-1 text-warning"></i> Lokasi Toko
+                </h6>
+                <p class="small mb-0 opacity-90" style="line-height: 1.6;">
+                    Jl. Pajajaran 1 Jl. Raya Rambay, Sukamantri, Kec. Cisaat, Kabupaten Sukabumi, Jawa Barat 43152
+                </p>
+            </div>
+            <div class="col-12 col-md-5">
+                <h6 class="text-white fw-bold mb-2 fs-6">
+                    <i class="bi bi-clock-fill me-1 text-warning"></i> Jam Operasional
+                </h6>
+                <div class="small opacity-90">
+                    <div class="mb-1">Senin – Jumat: <strong class="text-white">07.00 – 22.00 WIB</strong></div>
+                    <div>Sabtu – Minggu: <strong class="text-white">06.00 – 22.00 WIB</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top border-white border-opacity-25 mt-4 pt-3 text-center small" style="color: #c8e6c9;">
+            &copy; <%= new Date().getFullYear() %> <strong class="text-white">Yomart Rambay</strong>.
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // ========================================================
+    // SCROLL REVEAL (FADE IN SMOOTH ON SCROLL)
+    // ========================================================
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        revealElements.forEach(el => el.classList.add('is-revealed'));
+    }
+
+    const htmlElement = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    const savedTheme = localStorage.getItem('yomart_theme') || 'light';
+    applyTheme(savedTheme);
+
+    function applyTheme(theme) {
+        htmlElement.setAttribute('data-bs-theme', theme);
+        localStorage.setItem('yomart_theme', theme);
+
+        if (theme === 'dark') {
+            themeIcon.className = 'bi bi-sun-fill';
+            themeToggleBtn.setAttribute('title', 'Ganti ke Mode Terang');
+        } else {
+            themeIcon.className = 'bi bi-moon-stars-fill';
+            themeToggleBtn.setAttribute('title', 'Ganti ke Mode Gelap');
+        }
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+    }
+</script>
+
+</body>
+</html>

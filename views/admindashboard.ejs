@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+    <!-- Bootstrap 5.3.3 & Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #1b7a42;
+            --primary-green-hover: #145a32;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .admin-nav {
+            background-color: var(--primary-green) !important;
+            border-bottom: 3px solid var(--primary-green-hover);
+        }
+
+        .stat-card {
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .card-custom {
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .table-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .banner-preview-box {
+            height: 90px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .review-thumb {
+            width: 60px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-theme-toggle {
+            border: 1px solid rgba(255,255,255,0.3);
+            background-color: rgba(255,255,255,0.15);
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.25s ease;
+        }
+        .btn-theme-toggle:hover {
+            background-color: rgba(255,255,255,0.3);
+            color: #ffeb3b;
+        }
+
+        /* DARK MODE STYLING */
+        [data-bs-theme="dark"] body {
+            background-color: #0f172a !important;
+            color: #f1f5f9;
+        }
+        [data-bs-theme="dark"] .admin-nav {
+            background-color: #0d381e !important;
+            border-bottom: 3px solid #061c0f;
+        }
+        [data-bs-theme="dark"] .card-custom,
+        [data-bs-theme="dark"] .stat-card,
+        [data-bs-theme="dark"] .modal-content {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f8fafc;
+        }
+        [data-bs-theme="dark"] .card-header {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .modal-header {
+            border-bottom-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .modal-footer {
+            background-color: #0f172a !important;
+            border-top-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .table-light,
+        [data-bs-theme="dark"] .table-light th {
+            background-color: #0f172a !important;
+            color: #cbd5e1 !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .table-hover tbody tr:hover {
+            background-color: #273549 !important;
+        }
+        [data-bs-theme="dark"] .table td, 
+        [data-bs-theme="dark"] .table th {
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .form-control,
+        [data-bs-theme="dark"] .form-select {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+        }
+        [data-bs-theme="dark"] .form-control:focus,
+        [data-bs-theme="dark"] .form-select:focus {
+            border-color: #22c55e !important;
+            box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important;
+        }
+        [data-bs-theme="dark"] .accordion-button {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .accordion-button:not(.collapsed) {
+            background-color: #0d381e !important;
+            color: #86efac !important;
+        }
+        [data-bs-theme="dark"] .accordion-item {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .bg-light {
+            background-color: #0f172a !important;
+        }
+        [data-bs-theme="dark"] .text-dark {
+            color: #f8fafc !important;
+        }
+        [data-bs-theme="dark"] .text-muted {
+            color: #94a3b8 !important;
+        }
+        [data-bs-theme="dark"] .table-img,
+        [data-bs-theme="dark"] .banner-preview-box,
+        [data-bs-theme="dark"] .review-thumb {
+            background-color: #0f172a;
+            border-color: #334155;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<% 
+    const prodList = products || [];
+    const eventList = (typeof events !== 'undefined') ? events : [];
+    const reviewList = (typeof reviews !== 'undefined') ? reviews : [];
+%>
+
+<!-- NAVBAR ADMIN -->
+<nav class="navbar navbar-expand-lg navbar-dark admin-nav shadow-sm sticky-top">
+    <div class="container">
+        
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="<%= typeof adminDashboardPath !== 'undefined' ? adminDashboardPath : '/b4rracudax666xxx' %>">
+            <span class="fs-4 me-2">🛒</span> 
+            <span>Yomart Rambay</span> 
+            <span class="badge bg-light text-success ms-2 px-2 py-1 fs-6">Admin Panel</span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+            <!-- DARK MODE BUTTON -->
+            <button id="themeToggleBtn" class="btn-theme-toggle" type="button" aria-label="Toggle Theme" title="Ganti Mode Gelap/Terang">
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+
+            <!-- TOGGLER MOBILE -->
+            <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse order-lg-2" id="adminNavbarMenu">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 mt-2 mt-lg-0">
+                <a href="/" target="_blank" class="btn btn-outline-light btn-sm text-start">
+                    <i class="bi bi-eye me-1"></i> Lihat Katalog
+                </a>
+                <a href="/event" target="_blank" class="btn btn-outline-light btn-sm text-start">
+                    <i class="bi bi-calendar-event me-1"></i> Lihat Event
+                </a>
+                <a href="/logout" class="btn btn-danger btn-sm text-start">
+                    <i class="bi bi-box-arrow-right me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<!-- CONTAINER UTAMA -->
+<div class="container my-3 my-md-4 flex-grow-1">
+
+    <!-- NOTIFIKASI SUKSES / ERROR -->
+    <% if (message) { %>
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> <strong>Berhasil:</strong> <%= message %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <% } %>
+
+    <% if (errorMsg) { %>
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Perhatian:</strong> <%= errorMsg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <% } %>
+
+    <!-- RINGKASAN STATISTIK (QUICK STATS) -->
+    <div class="row g-2 g-md-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card stat-card card-custom p-3 text-center bg-white shadow-sm h-100">
+                <div class="text-success fs-3 mb-1"><i class="bi bi-box-seam-fill"></i></div>
+                <h4 class="fw-bold mb-0" id="statProductCount"><%= prodList.length %></h4>
+                <small class="text-muted">Total Produk Aktif</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card stat-card card-custom p-3 text-center bg-white shadow-sm h-100">
+                <div class="text-primary fs-3 mb-1"><i class="bi bi-calendar-event-fill"></i></div>
+                <h4 class="fw-bold mb-0"><%= eventList.length %></h4>
+                <small class="text-muted">Event Aktif</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card stat-card card-custom p-3 text-center bg-white shadow-sm h-100">
+                <div class="text-warning fs-3 mb-1"><i class="bi bi-images"></i></div>
+                <h4 class="fw-bold mb-0">6</h4>
+                <small class="text-muted">Kategori Banner</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card stat-card card-custom p-3 text-center bg-white shadow-sm h-100">
+                <div class="text-danger fs-3 mb-1"><i class="bi bi-chat-heart-fill"></i></div>
+                <h4 class="fw-bold mb-0"><%= reviewList.length %></h4>
+                <small class="text-muted">Foto Ulasan</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FITUR TAMBAH PRODUK (DIPOSISIKAN PALING ATAS) -->
+    <!-- ======================================================== -->
+    <div class="card card-custom shadow-sm mb-4 bg-white border-0">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-5 text-success"><i class="bi bi-plus-circle-fill"></i></span>
+                <h5 class="card-title fw-bold mb-0 text-success">Tambah Produk Baru</h5>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAddProduct" aria-expanded="true">
+                <i class="bi bi-chevron-down" id="collapseIcon"></i>
+            </button>
+        </div>
+
+        <div class="collapse show" id="collapseAddProduct">
+            <div class="card-body p-3 p-md-4">
+                <form action="/admin/products/add" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="row g-3">
+                        <!-- NAMA PRODUK -->
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold small">Nama Produk <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" placeholder="Contoh: Pepsodent Pencegah Gigi Berlubang 225g" required>
+                        </div>
+
+                        <!-- KATEGORI PROMO -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <label class="form-label fw-semibold small">Kategori Promo <span class="text-danger">*</span></label>
+                            <select name="category" class="form-select" required>
+                                <option value="" disabled selected>-- Pilih Promo --</option>
+                                <option value="buming">Promo Buming</option>
+                                <option value="pasti-hemat">Pasti Hemat</option>
+                                <option value="gaspol">Gaspol</option>
+                                <option value="breadco">Breadco</option>
+                                <option value="roti-bakar">Roti Bakar</option>
+                            </select>
+                        </div>
+
+                        <!-- KATEGORI BARANG -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <label class="form-label fw-semibold small">Kategori Barang <span class="text-danger">*</span></label>
+                            <select name="sub_category" class="form-select" required>
+                                <option value="beverages">Minuman</option>
+                                <option value="food-cooking">Sembako</option>
+                                <option value="dapur">Dapur</option>
+                                <option value="frozen">Frozen Food</option>
+                                <option value="susu-olahan">Susu & Olahan Susu</option>
+                                <option value="roti">Roti</option>
+                                <option value="snacks">Camilan</option>
+                                <option value="popok">Popok</option>
+                                <option value="baby-kids">Bayi & Anak</option>
+                                <option value="farmasi">Farmasi</option>
+                                <option value="kosmetik-wanita">Perawatan Wanita</option>
+                                <option value="kosmetik-pria">Perawatan Pria</option>
+                                <option value="sabun-shampoo">Sabun & Shampoo</option>
+                                <option value="perawatan-gigi">Perawatan Gigi</option>
+                                <option value="pet-food">Makanan Hewan</option>
+                                <option value="insect-killer">Anti Serangga</option>
+                                <option value="household">Kebutuhan Rumah</option>
+                                <option value="perkakas">Perkakas</option>
+                                <option value="perawatan-kendaraan">Perawatan Kendaraan</option>
+                                <option value="perabot">Perabot</option>
+                            </select>
+                        </div>
+
+                        <!-- HARGA NORMAL -->
+                        <div class="col-6 col-md-3">
+                            <label class="form-label fw-semibold small">Harga Normal (Coret)</label>
+                            <input type="number" name="original_price" class="form-control" placeholder="20000 (Opsional)">
+                        </div>
+
+                        <!-- HARGA PROMO -->
+                        <div class="col-6 col-md-3">
+                            <label class="form-label fw-semibold small text-success">Harga Produk / Promo <span class="text-danger">*</span></label>
+                            <input type="number" name="price" class="form-control fw-bold text-success border-success" placeholder="16500" required>
+                        </div>
+
+                        <!-- HARGA MYYOGYA -->
+                        <div class="col-6 col-md-3">
+                            <label class="form-label fw-semibold small text-primary">Harga MyYOGYA</label>
+                            <input type="number" name="myyogya_price" class="form-control border-primary" placeholder="14900 (Opsional)">
+                        </div>
+
+                        <!-- PERIODE PROMO -->
+                        <div class="col-6 col-md-3">
+                            <label class="form-label fw-semibold small text-danger">Periode Promo Berakhir</label>
+                            <input type="text" name="promo_end" class="form-control border-danger" placeholder="Contoh: 31 Agustus 2026">
+                        </div>
+
+                        <!-- FOTO PRODUK -->
+                        <div class="col-12 col-md-8">
+                            <label class="form-label fw-semibold small">Upload Foto Produk</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                        </div>
+
+                        <!-- TOMBOL SUBMIT -->
+                        <div class="col-12 col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-semibold shadow-sm">
+                                <i class="bi bi-save me-1"></i> Simpan Produk
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TABEL DAFTAR PRODUK AKTIF -->
+    <!-- ======================================================== -->
+    <div class="card card-custom shadow-sm mb-4 bg-white border-0">
+        
+        <form id="bulkDeleteForm" action="/admin/products/bulk-delete" method="POST" onsubmit="return confirmBulkDelete();">
+            
+            <div class="card-header bg-white py-3 border-bottom">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                    
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5 text-primary"><i class="bi bi-list-check"></i></span>
+                        <h5 class="card-title fw-bold mb-0 text-dark">Daftar Produk Aktif</h5>
+                        <span class="badge bg-secondary" id="tableProductCount"><%= prodList.length %> Produk</span>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <!-- PENCARIAN LIVE -->
+                        <div class="input-group input-group-sm" style="max-width: 240px;">
+                            <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                            <input type="text" id="searchProductInput" class="form-control" placeholder="Cari nama produk..." onkeyup="filterProductsTable()">
+                        </div>
+
+                        <!-- FILTER KATEGORI -->
+                        <select id="filterPromoSelect" class="form-select form-select-sm" style="width: auto;" onchange="filterProductsTable()">
+                            <option value="all">Semua Promo</option>
+                            <option value="buming">Buming</option>
+                            <option value="pasti-hemat">Pasti Hemat</option>
+                            <option value="gaspol">Gaspol</option>
+                            <option value="breadco">Breadco</option>
+                            <option value="roti-bakar">Roti Bakar</option>
+                        </select>
+
+                        <!-- TOMBOL HAPUS TERPILIH -->
+                        <button type="submit" id="btnBulkDelete" class="btn btn-danger btn-sm fw-semibold shadow-sm" disabled>
+                            <i class="bi bi-trash3-fill me-1"></i> Hapus (<span id="selectedCount">0</span>)
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0" id="productsTable" style="font-size: 0.86rem;">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th class="ps-3" style="width: 40px;">
+                                    <input type="checkbox" id="selectAllProducts" class="form-check-input" title="Pilih Semua">
+                                </th>
+                                <th style="width: 60px;">Foto</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th class="text-center" style="width: 100px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (prodList.length > 0) { %>
+                                <% prodList.forEach(product => { %>
+                                    <tr class="product-row" data-name="<%= product.name.toLowerCase() %>" data-category="<%= product.category %>">
+                                        <td class="ps-3">
+                                            <input type="checkbox" name="product_ids" value="<%= product.id %>" class="form-check-input product-checkbox" onchange="updateSelectedCount()">
+                                        </td>
+                                        <td>
+                                            <img src="/image/<%= product.image %>" class="table-img" alt="<%= product.name %>" onerror="this.onerror=null; this.src='https://placehold.co/100x100?text=No+Img';">
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold text-dark"><%= product.name %></div>
+                                            <% if (product.promo_end) { %>
+                                                <small class="text-danger fw-semibold"><i class="bi bi-clock-history"></i> s.d. <%= product.promo_end %></small>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-danger text-uppercase mb-1"><%= product.category %></span><br>
+                                            <span class="badge bg-success text-uppercase"><%= product.sub_category || 'beverages' %></span>
+                                        </td>
+                                        <td>
+                                            <% if (product.original_price && Number(product.original_price) > Number(product.price)) { %>
+                                                <span class="text-muted small text-decoration-line-through">
+                                                    Rp <%= Number(product.original_price).toLocaleString('id-ID') %>
+                                                </span><br>
+                                                <span class="fw-bold text-danger">
+                                                    Rp <%= Number(product.price).toLocaleString('id-ID') %>
+                                                </span>
+                                            <% } else { %>
+                                                <span class="fw-bold text-success">
+                                                    Rp <%= Number(product.price).toLocaleString('id-ID') %>
+                                                </span>
+                                            <% } %>
+
+                                            <% if (product.myyogya_price) { %>
+                                                <br><span class="badge bg-primary" style="font-size: 0.65rem;">
+                                                    MyYOGYA: Rp <%= Number(product.myyogya_price).toLocaleString('id-ID') %>
+                                                </span>
+                                            <% } %>
+                                        </td>
+                                        <td class="text-center pe-3">
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal<%= product.id %>" title="Edit Produk">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger" title="Hapus Produk" onclick="deleteSingleProduct('<%= product.id %>', '<%= product.name.replace(/'/g, "\\'") %>')">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr id="noProductsRow">
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <div class="fs-2 mb-2">📦</div>
+                                        Belum ada produk aktif yang ditambahkan.
+                                    </td>
+                                </tr>
+                            <% } %>
+                            <tr id="noSearchResultRow" class="d-none">
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    Tidak ada produk yang cocok dengan pencarian / filter Anda.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- SEKSI BAWAH: BANNER, EVENT, DAN ULASAN (3 KOLOM) -->
+    <!-- ======================================================== -->
+    <div class="row g-4">
+
+        <!-- 1. KELOLA BANNER 6 KATEGORI -->
+        <div class="col-12 col-lg-4">
+            <div class="card card-custom shadow-sm bg-white border-0 h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h6 class="card-title fw-bold mb-0 text-success">
+                        <i class="bi bi-images me-1"></i> Banner Promo
+                    </h6>
+                    <span class="badge bg-success">6 Kategori</span>
+                </div>
+                <div class="card-body p-3">
+                    <% 
+                        const categoryList = [
+                            { key: 'buming', name: 'Promo Buming', defaultImg: 'buming.jpeg' },
+                            { key: 'pasti_hemat', name: 'Pasti Hemat', defaultImg: 'pastihemat.jpeg' },
+                            { key: 'gaspol', name: 'Gaspol', defaultImg: 'gaspol.jpeg' },
+                            { key: 'breadco', name: 'Breadco', defaultImg: 'biridco.jpg' },
+                            { key: 'roti_bakar', name: 'Roti Bakar', defaultImg: 'rotibakar.jpg' },
+                            { key: 'telur', name: 'Promo Telur', defaultImg: null }
+                        ];
+                    %>
+
+                    <div class="accordion" id="accordionBanner">
+                        <% categoryList.forEach((cat, idx) => { %>
+                            <% const currentImg = (banners && banners['promo_' + cat.key]) ? banners['promo_' + cat.key] : cat.defaultImg; %>
+                            
+                            <div class="accordion-item border mb-2 rounded overflow-hidden">
+                                <h2 class="accordion-header" id="heading<%= idx %>">
+                                    <button class="accordion-button <%= idx !== 0 ? 'collapsed' : '' %> py-2 px-3 fw-semibold small bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= idx %>">
+                                        <%= cat.name %> 
+                                        <% if (banners && banners['promo_' + cat.key]) { %>
+                                            <span class="badge bg-success ms-2" style="font-size: 0.65rem;">Custom</span>
+                                        <% } %>
+                                    </button>
+                                </h2>
+                                <div id="collapse<%= idx %>" class="accordion-collapse collapse <%= idx === 0 ? 'show' : '' %>" data-bs-parent="#accordionBanner">
+                                    <div class="accordion-body p-3 text-center">
+                                        
+                                        <% if (currentImg) { %>
+                                            <img src="/image/<%= currentImg %>" class="banner-preview-box mb-2" alt="<%= cat.name %>" onerror="this.onerror=null; this.src='https://placehold.co/300x120?text=Banner';">
+                                        <% } else { %>
+                                            <div class="banner-preview-box d-flex align-items-center justify-content-center text-muted small mb-2">
+                                                Belum ada foto banner
+                                            </div>
+                                        <% } %>
+
+                                        <% if (banners && banners['promo_' + cat.key]) { %>
+                                            <form action="/admin/banner/delete/<%= cat.key %>" method="POST" onsubmit="return confirm('Reset banner <%= cat.name %> ke foto default?');" class="mb-2">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm w-100 py-1" style="font-size: 0.75rem;">
+                                                    <i class="bi bi-arrow-counterclockwise"></i> Reset ke Default
+                                                </button>
+                                            </form>
+                                        <% } %>
+
+                                        <form action="/admin/banner/upload/<%= cat.key %>" method="POST" enctype="multipart/form-data">
+                                            <input type="file" name="image" class="form-control form-control-sm mb-2" accept="image/*" required>
+                                            <button type="submit" class="btn btn-success btn-sm w-100 fw-semibold">
+                                                <i class="bi bi-upload"></i> Upload Banner
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. KELOLA EVENT -->
+        <div class="col-12 col-lg-4">
+            <div class="card card-custom shadow-sm bg-white border-0 h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h6 class="card-title fw-bold mb-0 text-primary">
+                        <i class="bi bi-calendar-plus me-1"></i> Kelola Event
+                    </h6>
+                    <span class="badge bg-primary"><%= eventList.length %> Event</span>
+                </div>
+                <div class="card-body p-3">
+                    <form action="/admin/events/add" method="POST" enctype="multipart/form-data" class="mb-3">
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Judul Event <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control form-control-sm" placeholder="Contoh: Gebyar Kemerdekaan" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Periode / Tanggal</label>
+                            <input type="text" name="period" class="form-control form-control-sm" placeholder="Contoh: 1 - 31 Agustus 2026">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Deskripsi</label>
+                            <textarea name="description" class="form-control form-control-sm" rows="2" placeholder="Info syarat / ketentuan..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Foto Event <span class="text-danger">*</span></label>
+                            <input type="file" name="image" class="form-control form-control-sm" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm w-100 fw-semibold">
+                            <i class="bi bi-upload"></i> Tambah Event
+                        </button>
+                    </form>
+
+                    <!-- LIST EVENT -->
+                    <% if (eventList.length > 0) { %>
+                        <div class="border rounded p-2 bg-light" style="max-height: 180px; overflow-y: auto;">
+                            <% eventList.forEach(ev => { %>
+                                <div class="d-flex align-items-center justify-content-between bg-white p-2 rounded mb-2 border shadow-sm">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/image/<%= ev.image %>" class="review-thumb" alt="<%= ev.title %>">
+                                        <div>
+                                            <div class="small fw-bold text-dark text-truncate" style="max-width: 140px;"><%= ev.title %></div>
+                                            <div class="text-muted" style="font-size: 0.7rem;"><%= ev.period || '-' %></div>
+                                        </div>
+                                    </div>
+                                    <form action="/admin/events/delete/<%= ev.id %>" method="POST" onsubmit="return confirm('Hapus event <%= ev.title %>?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm p-1" title="Hapus Event">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SCREENSHOT ULASAN PELANGGAN -->
+        <div class="col-12 col-lg-4">
+            <div class="card card-custom shadow-sm bg-white border-0 h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h6 class="card-title fw-bold mb-0 text-danger">
+                        <i class="bi bi-chat-quote me-1"></i> Screenshot Ulasan
+                    </h6>
+                    <span class="badge bg-danger"><%= reviewList.length %> Foto</span>
+                </div>
+                <div class="card-body p-3">
+                    <form action="/admin/reviews/upload" method="POST" enctype="multipart/form-data" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Upload Screenshot Ulasan</label>
+                            <input type="file" name="image" class="form-control form-control-sm" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-sm w-100 fw-semibold">
+                            <i class="bi bi-upload"></i> Upload Foto Ulasan
+                        </button>
+                    </form>
+
+                    <!-- LIST ULASAN -->
+                    <% if (reviewList.length > 0) { %>
+                        <div class="border rounded p-2 bg-light" style="max-height: 240px; overflow-y: auto;">
+                            <% reviewList.forEach((rev, idx) => { %>
+                                <div class="d-flex align-items-center justify-content-between bg-white p-2 rounded mb-2 border shadow-sm">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/image/<%= rev.image %>" class="review-thumb" alt="Ulasan">
+                                        <span class="small fw-semibold text-dark">Ulasan #<%= idx + 1 %></span>
+                                    </div>
+                                    <form action="/admin/reviews/delete/<%= rev.id %>" method="POST" onsubmit="return confirm('Hapus screenshot ulasan ini?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm p-1" title="Hapus Ulasan">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================== -->
+<!-- MODAL-MODAL EDIT PRODUK -->
+<!-- ======================================================== -->
+<% if (prodList.length > 0) { %>
+    <% prodList.forEach(product => { %>
+        <div class="modal fade" id="editModal<%= product.id %>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title fs-6 fw-bold">✏️ Edit Produk: <%= product.name %></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="/admin/products/edit/<%= product.id %>" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body text-start">
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Nama Produk</label>
+                                <input type="text" name="name" class="form-control form-control-sm" value="<%= product.name %>" required>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Kategori Promo</label>
+                                    <select name="category" class="form-select form-select-sm" required>
+                                        <option value="buming" <%= product.category === 'buming' ? 'selected' : '' %>>Buming</option>
+                                        <option value="pasti-hemat" <%= product.category === 'pasti-hemat' ? 'selected' : '' %>>Pasti Hemat</option>
+                                        <option value="gaspol" <%= product.category === 'gaspol' ? 'selected' : '' %>>Gaspol</option>
+                                        <option value="breadco" <%= product.category === 'breadco' ? 'selected' : '' %>>Breadco</option>
+                                        <option value="roti-bakar" <%= product.category === 'roti-bakar' ? 'selected' : '' %>>Roti Bakar</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Kategori Barang</label>
+                                    <select name="sub_category" class="form-select form-select-sm" required>
+                                        <option value="beverages" <%= product.sub_category === 'beverages' ? 'selected' : '' %>>Minuman</option>
+                                        <option value="food-cooking" <%= product.sub_category === 'food-cooking' ? 'selected' : '' %>>Sembako</option>
+                                        <option value="dapur" <%= product.sub_category === 'dapur' ? 'selected' : '' %>>Dapur</option>
+                                        <option value="frozen" <%= product.sub_category === 'frozen' ? 'selected' : '' %>>Frozen Food</option>
+                                        <option value="susu-olahan" <%= product.sub_category === 'susu-olahan' ? 'selected' : '' %>>Susu & Olahan Susu</option>
+                                        <option value="roti" <%= product.sub_category === 'roti' ? 'selected' : '' %>>Roti</option>
+                                        <option value="snacks" <%= product.sub_category === 'snacks' ? 'selected' : '' %>>Camilan</option>
+                                        <option value="popok" <%= product.sub_category === 'popok' ? 'selected' : '' %>>Popok</option>
+                                        <option value="baby-kids" <%= product.sub_category === 'baby-kids' ? 'selected' : '' %>>Bayi & Anak</option>
+                                        <option value="farmasi" <%= product.sub_category === 'farmasi' ? 'selected' : '' %>>Farmasi</option>
+                                        <option value="kosmetik-wanita" <%= (product.sub_category === 'kosmetik-wanita' || product.sub_category === 'perawatan-wanita') ? 'selected' : '' %>>Perawatan Wanita</option>
+                                        <option value="kosmetik-pria" <%= product.sub_category === 'kosmetik-pria' ? 'selected' : '' %>>Perawatan Pria</option>
+                                        <option value="sabun-shampoo" <%= product.sub_category === 'sabun-shampoo' ? 'selected' : '' %>>Sabun & Shampoo</option>
+                                        <option value="perawatan-gigi" <%= product.sub_category === 'perawatan-gigi' ? 'selected' : '' %>>Perawatan Gigi</option>
+                                        <option value="pet-food" <%= product.sub_category === 'pet-food' ? 'selected' : '' %>>Makanan Hewan</option>
+                                        <option value="insect-killer" <%= product.sub_category === 'insect-killer' ? 'selected' : '' %>>Anti Serangga</option>
+                                        <option value="household" <%= product.sub_category === 'household' ? 'selected' : '' %>>Kebutuhan Rumah</option>
+                                        <option value="perkakas" <%= product.sub_category === 'perkakas' ? 'selected' : '' %>>Perkakas</option>
+                                        <option value="perawatan-kendaraan" <%= product.sub_category === 'perawatan-kendaraan' ? 'selected' : '' %>>Perawatan Kendaraan</option>
+                                        <option value="perabot" <%= product.sub_category === 'perabot' ? 'selected' : '' %>>Perabot</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Harga Normal (Coret)</label>
+                                    <input type="number" name="original_price" class="form-control form-control-sm" value="<%= product.original_price || '' %>" placeholder="Kosongkan jika non-promo">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small text-success">Harga Promo <span class="text-danger">*</span></label>
+                                    <input type="number" name="price" class="form-control form-control-sm border-success fw-bold text-success" value="<%= product.price %>" required>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small text-primary">Harga MyYOGYA</label>
+                                    <input type="number" name="myyogya_price" class="form-control form-control-sm border-primary" value="<%= product.myyogya_price || '' %>" placeholder="14900 (Opsional)">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small text-danger">Periode Berakhir</label>
+                                    <input type="text" name="promo_end" class="form-control form-control-sm border-danger" value="<%= product.promo_end || '' %>" placeholder="Contoh: 31 Agustus 2026">
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label fw-semibold small">Ganti Foto Produk (Opsional)</label>
+                                <input type="file" name="image" class="form-control form-control-sm" accept="image/*">
+                                <div class="form-text small">Biarkan kosong jika tidak ingin mengganti foto.</div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer bg-light">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-success btn-sm fw-semibold">💾 Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+<% } %>
+
+<!-- FORM HIDDEN DELETE 1 PRODUK -->
+<form id="singleDeleteForm" method="POST" style="display: none;"></form>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // ========================================================
+    // LOGIKA DARK / LIGHT MODE DENGAN LOCALSTORAGE
+    // ========================================================
+    const htmlElement = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    const savedTheme = localStorage.getItem('yomart_theme') || 'light';
+    applyTheme(savedTheme);
+
+    function applyTheme(theme) {
+        htmlElement.setAttribute('data-bs-theme', theme);
+        localStorage.setItem('yomart_theme', theme);
+
+        if (theme === 'dark') {
+            themeIcon.className = 'bi bi-sun-fill text-warning';
+            themeToggleBtn.setAttribute('title', 'Ganti ke Mode Terang');
+        } else {
+            themeIcon.className = 'bi bi-moon-stars-fill';
+            themeToggleBtn.setAttribute('title', 'Ganti ke Mode Gelap');
+        }
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+    }
+
+    // ========================================================
+    // BULK DELETE CHECKBOX SELECTION
+    // ========================================================
+    const selectAllCheckbox = document.getElementById('selectAllProducts');
+    const productCheckboxes = document.querySelectorAll('.product-checkbox');
+    const btnBulkDelete = document.getElementById('btnBulkDelete');
+    const selectedCountSpan = document.getElementById('selectedCount');
+
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function () {
+            const visibleRows = document.querySelectorAll('.product-row:not(.d-none) .product-checkbox');
+            visibleRows.forEach(cb => cb.checked = this.checked);
+            updateSelectedCount();
+        });
+    }
+
+    function updateSelectedCount() {
+        const checkedList = document.querySelectorAll('.product-checkbox:checked');
+        const count = checkedList.length;
+
+        if (selectedCountSpan) selectedCountSpan.innerText = count;
+        if (btnBulkDelete) btnBulkDelete.disabled = count === 0;
+
+        if (selectAllCheckbox) {
+            const total = document.querySelectorAll('.product-checkbox').length;
+            if (count === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            } else if (count === total) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else {
+                selectAllCheckbox.indeterminate = true;
+            }
+        }
+    }
+
+    function confirmBulkDelete() {
+        const count = document.querySelectorAll('.product-checkbox:checked').length;
+        if (count === 0) {
+            alert('Silakan pilih minimal satu produk untuk dihapus!');
+            return false;
+        }
+        return confirm(`Apakah Anda yakin ingin menghapus ${count} produk terpilih?`);
+    }
+
+    function deleteSingleProduct(id, name) {
+        if (confirm(`Apakah Anda yakin ingin menghapus produk "${name}"?`)) {
+            const form = document.getElementById('singleDeleteForm');
+            form.action = `/admin/products/delete/${id}`;
+            form.submit();
+        }
+    }
+
+    // ========================================================
+    // LIVE SEARCH & FILTER KATEGORI PADA TABEL
+    // ========================================================
+    function filterProductsTable() {
+        const searchVal = document.getElementById('searchProductInput').value.toLowerCase().trim();
+        const promoVal = document.getElementById('filterPromoSelect').value;
+        const rows = document.querySelectorAll('.product-row');
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const name = row.getAttribute('data-name');
+            const category = row.getAttribute('data-category');
+
+            const matchSearch = name.includes(searchVal);
+            const matchCategory = (promoVal === 'all' || category === promoVal);
+
+            if (matchSearch && matchCategory) {
+                row.classList.remove('d-none');
+                visibleCount++;
+            } else {
+                row.classList.add('d-none');
+            }
+        });
+
+        const noSearchResult = document.getElementById('noSearchResultRow');
+        if (noSearchResult) {
+            if (visibleCount === 0 && rows.length > 0) {
+                noSearchResult.classList.remove('d-none');
+            } else {
+                noSearchResult.classList.add('d-none');
+            }
+        }
+
+        const tableProductCount = document.getElementById('tableProductCount');
+        if (tableProductCount) {
+            tableProductCount.innerText = `${visibleCount} Produk`;
+        }
+    }
+
+    // TOGGLE ICON ANIMASI PADA FORM TAMBAH PRODUK
+    const collapseAddProduct = document.getElementById('collapseAddProduct');
+    const collapseIcon = document.getElementById('collapseIcon');
+    if (collapseAddProduct && collapseIcon) {
+        collapseAddProduct.addEventListener('show.bs.collapse', () => {
+            collapseIcon.className = 'bi bi-chevron-up';
+        });
+        collapseAddProduct.addEventListener('hide.bs.collapse', () => {
+            collapseIcon.className = 'bi bi-chevron-down';
+        });
+    }
+</script>
+
+</body>
+</html>
