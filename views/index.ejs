@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="/css/index.css">
 
     <style>
-        /* ======================================================== */
-        /* BACKGROUND GRADIEN UTAMA (PUTIH ABU-ABU ELEGAN) */
-        /* ======================================================== */
         body {
             background: linear-gradient(165deg, #ffffff 0%, #f6f8fb 35%, #edf1f7 100%) !important;
             background-attachment: fixed !important;
@@ -23,7 +20,6 @@
             transition: background 0.35s ease, color 0.35s ease;
         }
 
-        /* EFEK MUNCUL PUDAR SMOOTH SAAT DI-SCROLL */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(28px);
@@ -128,7 +124,6 @@
             line-height: 1.2;
         }
 
-        /* WRAPPER KATEGORI */
         .category-filter-wrapper {
             position: relative;
             display: flex;
@@ -171,7 +166,6 @@
             border-color: #ffc107;
         }
 
-        /* TOMBOL KATEGORI */
         .filter-pill {
             cursor: pointer;
             white-space: nowrap;
@@ -200,7 +194,6 @@
             box-shadow: 0 3px 10px rgba(255, 193, 7, 0.4) !important;
         }
 
-        /* SLIDER PER BARIS INDEPENDEN */
         .product-row-wrapper {
             position: relative;
             margin-bottom: 12px;
@@ -259,7 +252,6 @@
         .slider-btn.prev { left: -14px; }
         .slider-btn.next { right: -14px; }
 
-        /* CARD PRODUK */
         .product-card {
             border-radius: 12px;
             border: 1px solid #eaeaea;
@@ -452,9 +444,7 @@
         }
         .btn-theme-toggle:hover { background-color: rgba(0,0,0,0.05); color: #1b7a42; }
 
-        /* ======================================================== */
-        /* DARK MODE: HITAM BIRU TUA ELEGAN (MIDNIGHT NAVY BLACK) */
-        /* ======================================================== */
+        /* DARK MODE */
         [data-bs-theme="dark"] body { 
             background: linear-gradient(165deg, #070a12 0%, #0d1527 50%, #080e1a 100%) !important; 
             background-attachment: fixed !important; 
@@ -568,9 +558,7 @@
             color: #fbbf24; 
         }
 
-        /* ======================================================== */
-        /* KUCING TERBANG JETPACK ANIMATION & STYLING */
-        /* ======================================================== */
+        /* KUCING TERBANG JETPACK */
         .astrocat-container {
             position: fixed;
             bottom: 25px;
@@ -626,7 +614,6 @@
             100% { transform: scaleY(1.3) scaleX(1.1); opacity: 1; filter: drop-shadow(0 0 6px #ff7b00); }
         }
 
-        /* Animasi Roket Boost 360° Saat Diklik (Lebih Santai & Halus 2s) */
         .astro-boost {
             animation: astroRocketBoost 2.0s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
         }
@@ -767,7 +754,6 @@
         <h5 class="fw-bold mb-2 fs-6 fs-md-5">Pilih Kategori</h5>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-2 g-md-3 align-items-stretch">
             
-            <!-- 1. BUMING -->
             <div class="col">
                 <a href="/?category=buming" class="category-card shadow-sm <%= activeCategory === 'buming' ? 'active' : '' %>">
                     <div class="category-img-wrapper">
@@ -779,7 +765,6 @@
                 </a>
             </div>
 
-            <!-- 2. PASTI HEMAT -->
             <div class="col">
                 <a href="/?category=pasti-hemat" class="category-card shadow-sm <%= activeCategory === 'pasti-hemat' ? 'active' : '' %>">
                     <div class="category-img-wrapper">
@@ -791,7 +776,6 @@
                 </a>
             </div>
 
-            <!-- 3. GASPOL -->
             <div class="col">
                 <a href="/?category=gaspol" class="category-card shadow-sm <%= activeCategory === 'gaspol' ? 'active' : '' %>">
                     <div class="category-img-wrapper">
@@ -803,7 +787,6 @@
                 </a>
             </div>
 
-            <!-- 4. BREADCO -->
             <div class="col">
                 <a href="/?category=breadco" class="category-card shadow-sm <%= activeCategory === 'breadco' ? 'active' : '' %>">
                     <div class="category-img-wrapper">
@@ -815,7 +798,6 @@
                 </a>
             </div>
 
-            <!-- 5. ROTI BAKAR -->
             <div class="col">
                 <a href="/?category=roti-bakar" class="category-card shadow-sm <%= activeCategory === 'roti-bakar' ? 'active' : '' %>">
                     <div class="category-img-wrapper">
@@ -827,7 +809,6 @@
                 </a>
             </div>
 
-            <!-- 6. PROMO TELUR (MODAL) -->
             <div class="col">
                 <div class="category-card shadow-sm" data-bs-toggle="modal" data-bs-target="#modalPromoTelur" title="Klik untuk lihat promo telur">
                     <div class="category-img-wrapper">
@@ -906,7 +887,7 @@
                     <i class="bi bi-basket me-1"></i> Sembako
                 </button>
                 <button class="filter-pill" data-filter="dapur" onclick="filterSubCategory('dapur', this)">
-                    <i class="bi bi-fire me-1"></i> Dapur
+                    <i class="bi bi-fire me-1"></i> Kebutuhan Dapur
                 </button>
                 <button class="filter-pill" data-filter="frozen" onclick="filterSubCategory('frozen', this)">
                     <i class="bi bi-snow me-1"></i> Frozen
@@ -926,6 +907,10 @@
                 <button class="filter-pill" data-filter="baby-kids" onclick="filterSubCategory('baby-kids', this)">
                     <i class="bi bi-balloon me-1"></i> Bayi & Anak
                 </button>
+                <!-- BARU: MAKANAN BAYI -->
+                <button class="filter-pill" data-filter="makanan-bayi" onclick="filterSubCategory('makanan-bayi', this)">
+                    <i class="bi bi-egg me-1"></i> Makanan Bayi
+                </button>
                 <button class="filter-pill" data-filter="farmasi" onclick="filterSubCategory('farmasi', this)">
                     <i class="bi bi-capsule me-1"></i> Farmasi
                 </button>
@@ -938,18 +923,28 @@
                 <button class="filter-pill" data-filter="sabun-shampoo" onclick="filterSubCategory('sabun-shampoo', this)">
                     <i class="bi bi-droplet me-1"></i> Sabun & Shampoo
                 </button>
-                <!-- PERAWATAN GIGI -->
                 <button class="filter-pill" data-filter="perawatan-gigi" onclick="filterSubCategory('perawatan-gigi', this)">
                     <i class="bi bi-emoji-smile me-1"></i> Perawatan Gigi
+                </button>
+                <button class="filter-pill" data-filter="pewangi-pencuci-baju" onclick="filterSubCategory('pewangi-pencuci-baju', this)">
+                    <i class="bi bi-water me-1"></i> Pewangi & Pencuci Baju
+                </button>
+                <button class="filter-pill" data-filter="pembersih-toilet" onclick="filterSubCategory('pembersih-toilet', this)">
+                    <i class="bi bi-brush me-1"></i> Pembersih Toilet
+                </button>
+                <!-- BARU: PEMBERSIH KACA & LANTAI -->
+                <button class="filter-pill" data-filter="pembersih-kaca-lantai" onclick="filterSubCategory('pembersih-kaca-lantai', this)">
+                    <i class="bi bi-window me-1"></i> Pembersih Kaca & Lantai
+                </button>
+                <!-- UPDATE: PENCUCI PIRING -->
+                <button class="filter-pill" data-filter="household" onclick="filterSubCategory('household', this)">
+                    <i class="bi bi-droplet-half me-1"></i> Pencuci Piring
                 </button>
                 <button class="filter-pill" data-filter="pet-food" onclick="filterSubCategory('pet-food', this)">
                     <i class="bi bi-heart-pulse me-1"></i> Makanan Hewan
                 </button>
                 <button class="filter-pill" data-filter="insect-killer" onclick="filterSubCategory('insect-killer', this)">
-                    <i class="bi bi-bug me-1"></i> Anti Serangga
-                </button>
-                <button class="filter-pill" data-filter="household" onclick="filterSubCategory('household', this)">
-                    <i class="bi bi-house-door me-1"></i> Kebutuhan Rumah
+                    <i class="bi bi-bug me-1"></i> Anti Serangga & Hama
                 </button>
                 <button class="filter-pill" data-filter="perkakas" onclick="filterSubCategory('perkakas', this)">
                     <i class="bi bi-tools me-1"></i> Perkakas
@@ -1114,52 +1109,38 @@
         <div class="astro-speech-bubble" id="astroSpeech">Halo Sobat Yomart</div>
         
         <svg viewBox="0 0 100 120" class="astrocat-svg" id="astroCatSvg">
-            <!-- Api Roket Jetpack (Bawah) -->
             <path class="astro-flame" d="M 46 92 Q 50 118 54 92 Z" fill="#ff7b00" />
             <path class="astro-flame" d="M 48 92 Q 50 110 52 92 Z" fill="#ffea00" />
             
-            <!-- Jetpack Backpack di Punggung -->
             <rect x="36" y="56" width="28" height="34" rx="7" fill="#cbd5e1" stroke="#64748b" stroke-width="2" />
             
-            <!-- Tubuh Baju Kucing -->
             <ellipse cx="50" cy="74" rx="23" ry="20" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
-            <!-- Lambang / Bintang di Dada -->
             <circle cx="50" cy="73" r="5" fill="#0284c7" />
             <polygon points="48.5,70 52.5,73 48.5,76" fill="#ffffff" />
             
-            <!-- Kaki Kucing -->
             <ellipse cx="36" cy="92" rx="7.5" ry="6" fill="#fb923c" stroke="#ea580c" stroke-width="1.2" />
             <ellipse cx="64" cy="92" rx="7.5" ry="6" fill="#fb923c" stroke="#ea580c" stroke-width="1.2" />
             
-            <!-- Tangan/Cakar Kucing -->
             <ellipse cx="26" cy="72" rx="6" ry="9" transform="rotate(-30 26 72)" fill="#fb923c" stroke="#ea580c" stroke-width="1.2" />
             <ellipse cx="74" cy="72" rx="6" ry="9" transform="rotate(30 74 72)" fill="#fb923c" stroke="#ea580c" stroke-width="1.2" />
             <circle cx="23" cy="70" r="3" fill="#ffffff" />
             <circle cx="77" cy="70" r="3" fill="#ffffff" />
 
-            <!-- Syal Merah di Leher -->
             <path d="M 33 55 Q 50 62 67 55 Q 50 50 33 55 Z" fill="#ef4444" stroke="#dc2626" stroke-width="1.5" />
             <polygon points="56,58 64,68 53,65" fill="#ef4444" stroke="#dc2626" stroke-width="1" />
 
-            <!-- KEPALA KUCING -->
-            <!-- Telinga Kiri -->
             <polygon points="30,32 18,10 40,24" fill="#fb923c" stroke="#ea580c" stroke-width="1.5" />
             <polygon points="28,29 22,14 36,24" fill="#fecdd3" />
             
-            <!-- Telinga Kanan -->
             <polygon points="70,32 82,10 60,24" fill="#fb923c" stroke="#ea580c" stroke-width="1.5" />
             <polygon points="72,29 78,14 64,24" fill="#fecdd3" />
             
-            <!-- Kepala Kucing Fluffy Bulat -->
             <ellipse cx="50" cy="38" rx="26" ry="22" fill="#fb923c" stroke="#ea580c" stroke-width="1.5" />
-            <!-- Bulu Pipi Kiri & Kanan -->
             <path d="M 24 38 L 19 43 L 26 44 Z" fill="#fb923c" />
             <path d="M 76 38 L 81 43 L 74 44 Z" fill="#fb923c" />
             
-            <!-- Pola Wajah Putih -->
             <ellipse cx="50" cy="44" rx="16" ry="12" fill="#ffffff" />
             
-            <!-- Mata Besar Berbinar -->
             <ellipse cx="40" cy="35" rx="4.5" ry="5.5" fill="#0f172a" />
             <circle cx="41.5" cy="33" r="2" fill="#ffffff" />
             <circle cx="39" cy="37" r="1" fill="#ffffff" />
@@ -1168,15 +1149,12 @@
             <circle cx="61.5" cy="33" r="2" fill="#ffffff" />
             <circle cx="59" cy="37" r="1" fill="#ffffff" />
             
-            <!-- Hidung Pink & Mulut Senyum -->
             <polygon points="48.5,41 51.5,41 50,43.5" fill="#f43f5e" />
             <path d="M 46 44.5 Q 50 48 54 44.5" stroke="#0f172a" stroke-width="1.4" fill="none" stroke-linecap="round" />
             
-            <!-- Pipi Merah (Blush) -->
             <ellipse cx="33" cy="42" rx="4" ry="2.5" fill="#f43f5e" opacity="0.65" />
             <ellipse cx="67" cy="42" rx="4" ry="2.5" fill="#f43f5e" opacity="0.65" />
             
-            <!-- Kumis Kucing -->
             <line x1="30" y1="41" x2="18" y2="40" stroke="#475569" stroke-width="1.2" stroke-linecap="round" />
             <line x1="30" y1="44" x2="17" y2="46" stroke="#475569" stroke-width="1.2" stroke-linecap="round" />
             <line x1="70" y1="41" x2="82" y2="40" stroke="#475569" stroke-width="1.2" stroke-linecap="round" />
@@ -1252,9 +1230,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // ========================================================
-    // SCROLL REVEAL (FADE IN SMOOTH ON SCROLL)
-    // ========================================================
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -1302,9 +1277,6 @@
         });
     }
 
-    // ========================================================
-    // INTERAKSI KUCING JETPACK (KLIK UNTUK ROCKET BOOST)
-    // ========================================================
     const astroCatBox = document.getElementById('astroCatBox');
     const astroSpeech = document.getElementById('astroSpeech');
     let isAstroBoosting = false;
@@ -1324,18 +1296,15 @@
             isAstroBoosting = true;
             astroCatBox.classList.add('astro-boost');
 
-            // Pilih salah satu teks acak
             const randomQuote = astroQuotes[Math.floor(Math.random() * astroQuotes.length)];
             astroSpeech.innerText = randomQuote;
             astroSpeech.classList.add('show');
 
-            // Teks bertahan selama 2 detik (2000 ms)
             clearTimeout(astroSpeechTimer);
             astroSpeechTimer = setTimeout(() => {
                 astroSpeech.classList.remove('show');
             }, 2000);
 
-            // Selesai boost setelah 2 detik (2000 ms)
             setTimeout(() => {
                 astroCatBox.classList.remove('astro-boost');
                 isAstroBoosting = false;
@@ -1343,9 +1312,6 @@
         });
     }
 
-    // ========================================================
-    // INFINITE SEAMLESS AUTO-SCROLL KATEGORI
-    // ========================================================
     const filterContainer = document.getElementById('subFilterContainer');
     let isFilterInteracting = false;
     let singleSetWidth = 0;
@@ -1419,9 +1385,6 @@
         }, 2500);
     }
 
-    // ========================================================
-    // GESER PER BARIS INDEPENDEN
-    // ========================================================
     function slideRow(rowIndex, direction) {
         const row = document.getElementById(`productRow_${rowIndex}`);
         if (row) {
@@ -1442,9 +1405,6 @@
         }, { passive: false });
     });
 
-    // ========================================================
-    // FILTER SUB-KATEGORI PADA SETIAP BARIS INDEPENDEN
-    // ========================================================
     function filterSubCategory(subCat, btn) {
         document.querySelectorAll('.filter-pill').forEach(pill => {
             if (pill.getAttribute('data-filter') === subCat) {
@@ -1463,7 +1423,12 @@
 
             items.forEach(item => {
                 const itemCat = item.getAttribute('data-subcat');
-                if (subCat === 'all' || itemCat === subCat || (subCat === 'kosmetik-wanita' && itemCat === 'perawatan-wanita')) {
+                if (
+                    subCat === 'all' || 
+                    itemCat === subCat || 
+                    (subCat === 'kosmetik-wanita' && itemCat === 'perawatan-wanita') ||
+                    (subCat === 'household' && itemCat === 'pencuci-piring')
+                ) {
                     item.style.display = 'block';
                     rowVisibleCount++;
                     totalVisible++;
@@ -1492,7 +1457,6 @@
         }
     }
 
-    // FUNGSI ZOOM PRODUK
     function zoomProduct(imgSrc, title, waLink) {
         const img = document.getElementById('productZoomImg');
         const modalTitle = document.getElementById('productModalTitle');
@@ -1504,7 +1468,6 @@
         modal.show();
     }
 
-    // FUNGSI ZOOM ULASAN
     function zoomReview(imgSrc) {
         const zoomImg = document.getElementById('reviewZoomImg');
         if (zoomImg) {

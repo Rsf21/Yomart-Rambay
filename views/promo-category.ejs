@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/css/index.css">
 
     <style>
-        /* EFEK MUNCUL PUDAR SMOOTH SAAT DI-SCROLL */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(28px);
@@ -128,7 +127,6 @@
             box-shadow: 0 3px 10px rgba(255, 193, 7, 0.4) !important;
         }
 
-        /* SLIDER PER BARIS INDEPENDEN */
         .product-row-wrapper {
             position: relative;
             margin-bottom: 12px;
@@ -187,7 +185,6 @@
         .slider-btn.prev { left: -14px; }
         .slider-btn.next { right: -14px; }
 
-        /* CARD PRODUK RAPAT */
         .product-card {
             border-radius: 12px;
             border: 1px solid #eaeaea;
@@ -482,6 +479,7 @@
                 <h4 class="fw-bold mb-0 fs-5 fs-md-4 text-success">
                     <%= activeTitle %>
                 </h4>
+                <small class="text-muted">Setiap baris dapat digeser secara terpisah ke samping</small>
             </div>
             <span class="badge bg-danger fs-6" id="visibleProductCount">
                 <%= productList.length %> Produk
@@ -504,7 +502,7 @@
                     <i class="bi bi-basket me-1"></i> Sembako
                 </button>
                 <button class="filter-pill" data-filter="dapur" onclick="filterSubCategory('dapur', this)">
-                    <i class="bi bi-fire me-1"></i> Dapur
+                    <i class="bi bi-fire me-1"></i> Kebutuhan Dapur
                 </button>
                 <button class="filter-pill" data-filter="frozen" onclick="filterSubCategory('frozen', this)">
                     <i class="bi bi-snow me-1"></i> Frozen
@@ -524,6 +522,10 @@
                 <button class="filter-pill" data-filter="baby-kids" onclick="filterSubCategory('baby-kids', this)">
                     <i class="bi bi-balloon me-1"></i> Bayi & Anak
                 </button>
+                <!-- BARU: MAKANAN BAYI -->
+                <button class="filter-pill" data-filter="makanan-bayi" onclick="filterSubCategory('makanan-bayi', this)">
+                    <i class="bi bi-egg me-1"></i> Makanan Bayi
+                </button>
                 <button class="filter-pill" data-filter="farmasi" onclick="filterSubCategory('farmasi', this)">
                     <i class="bi bi-capsule me-1"></i> Farmasi
                 </button>
@@ -536,18 +538,28 @@
                 <button class="filter-pill" data-filter="sabun-shampoo" onclick="filterSubCategory('sabun-shampoo', this)">
                     <i class="bi bi-droplet me-1"></i> Sabun & Shampoo
                 </button>
-                <!-- PERAWATAN GIGI -->
                 <button class="filter-pill" data-filter="perawatan-gigi" onclick="filterSubCategory('perawatan-gigi', this)">
                     <i class="bi bi-emoji-smile me-1"></i> Perawatan Gigi
+                </button>
+                <button class="filter-pill" data-filter="pewangi-pencuci-baju" onclick="filterSubCategory('pewangi-pencuci-baju', this)">
+                    <i class="bi bi-water me-1"></i> Pewangi & Pencuci Baju
+                </button>
+                <button class="filter-pill" data-filter="pembersih-toilet" onclick="filterSubCategory('pembersih-toilet', this)">
+                    <i class="bi bi-brush me-1"></i> Pembersih Toilet
+                </button>
+                <!-- BARU: PEMBERSIH KACA & LANTAI -->
+                <button class="filter-pill" data-filter="pembersih-kaca-lantai" onclick="filterSubCategory('pembersih-kaca-lantai', this)">
+                    <i class="bi bi-window me-1"></i> Pembersih Kaca & Lantai
+                </button>
+                <!-- UPDATE: PENCUCI PIRING -->
+                <button class="filter-pill" data-filter="household" onclick="filterSubCategory('household', this)">
+                    <i class="bi bi-droplet-half me-1"></i> Pencuci Piring
                 </button>
                 <button class="filter-pill" data-filter="pet-food" onclick="filterSubCategory('pet-food', this)">
                     <i class="bi bi-heart-pulse me-1"></i> Makanan Hewan
                 </button>
                 <button class="filter-pill" data-filter="insect-killer" onclick="filterSubCategory('insect-killer', this)">
-                    <i class="bi bi-bug me-1"></i> Anti Serangga
-                </button>
-                <button class="filter-pill" data-filter="household" onclick="filterSubCategory('household', this)">
-                    <i class="bi bi-house-door me-1"></i> Kebutuhan Rumah
+                    <i class="bi bi-bug me-1"></i> Anti Serangga & Hama
                 </button>
                 <button class="filter-pill" data-filter="perkakas" onclick="filterSubCategory('perkakas', this)">
                     <i class="bi bi-tools me-1"></i> Perkakas
@@ -566,7 +578,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN PRODUK PER BARIS INDEPENDEN (FADE IN PADA TIAP BARIS) -->
+    <!-- TAMPILAN PRODUK PER BARIS INDEPENDEN -->
     <% if (productList.length > 0) { %>
         <div class="product-rows-container">
             <% rows.forEach((rowProducts, rIdx) => { %>
@@ -741,9 +753,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // ========================================================
-    // SCROLL REVEAL (FADE IN SMOOTH ON SCROLL)
-    // ========================================================
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -791,9 +800,6 @@
         });
     }
 
-    // ========================================================
-    // INFINITE SEAMLESS AUTO-SCROLL KATEGORI
-    // ========================================================
     const filterContainer = document.getElementById('subFilterContainer');
     let isFilterInteracting = false;
     let singleSetWidth = 0;
@@ -867,9 +873,6 @@
         }, 2500);
     }
 
-    // ========================================================
-    // GESER PER BARIS INDEPENDEN
-    // ========================================================
     function slideRow(rowIndex, direction) {
         const row = document.getElementById(`productRow_${rowIndex}`);
         if (row) {
@@ -890,9 +893,6 @@
         }, { passive: false });
     });
 
-    // ========================================================
-    // FILTER SUB-KATEGORI PADA SETIAP BARIS INDEPENDEN
-    // ========================================================
     function filterSubCategory(subCat, btn) {
         document.querySelectorAll('.filter-pill').forEach(pill => {
             if (pill.getAttribute('data-filter') === subCat) {
@@ -911,7 +911,12 @@
 
             items.forEach(item => {
                 const itemCat = item.getAttribute('data-subcat');
-                if (subCat === 'all' || itemCat === subCat || (subCat === 'kosmetik-wanita' && itemCat === 'perawatan-wanita')) {
+                if (
+                    subCat === 'all' || 
+                    itemCat === subCat || 
+                    (subCat === 'kosmetik-wanita' && itemCat === 'perawatan-wanita') ||
+                    (subCat === 'household' && itemCat === 'pencuci-piring')
+                ) {
                     item.style.display = 'block';
                     rowVisibleCount++;
                     totalVisible++;
@@ -940,7 +945,6 @@
         }
     }
 
-    // FUNGSI ZOOM PRODUK
     function zoomProduct(imgSrc, title, waLink) {
         const img = document.getElementById('productZoomImg');
         const modalTitle = document.getElementById('productModalTitle');
