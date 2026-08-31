@@ -12,9 +12,6 @@ const ADMIN_LOGIN_PATH = process.env.ADMIN_LOGIN_PATH
 const ADMIN_DASHBOARD_PATH = process.env.ADMIN_DASHBOARD_PATH
 const ADMIN_WA_NUMBER = process.env.ADMIN_WA_NUMBER
 
-// ==========================================
-// KONFIGURASI MULTER
-// ==========================================
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const dir = 'public/image';
@@ -73,11 +70,6 @@ function safeUnlink(filePath) {
     }
 }
 
-// ==========================================
-// 1. ROUTE PUBLIK
-// ==========================================
-
-// Halaman Utama Katalog Promo
 route.get('/', async (req, res) => {
     try {
         const currentCategory = req.query.category || 'buming';
@@ -323,7 +315,6 @@ route.post('/admin/banner/delete/:type', requireAuth, async (req, res) => {
     }
 });
 
-// ==========================================
 route.post('/admin/reviews/upload', requireAuth, upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {

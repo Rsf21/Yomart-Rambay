@@ -426,7 +426,6 @@
                 </div>
             </div>
 
-            <!-- PENJELASAN TECH STACK & TOOLS DI FOOTER KARTU -->
             <div class="about-tech-summary-box mt-4 reveal-on-scroll shadow-sm">
                 
                 <p class="small text-secondary mb-2" style="line-height: 1.7;">
@@ -443,7 +442,7 @@
 
 </div>
 
-<!-- MODAL ZOOM FOTO PROFIL (BERSIH & MINIMALIS) -->
+
 <div class="modal fade" id="modalZoomProfile" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content border-0 shadow">
@@ -461,9 +460,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // ========================================================
-    // SCROLL REVEAL (FADE IN SMOOTH ON SCROLL)
-    // ========================================================
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -482,10 +478,7 @@
     } else {
         revealElements.forEach(el => el.classList.add('is-revealed'));
     }
-
-    // ========================================================
-    // FUNGSI ZOOM FOTO PROFIL
-    // ========================================================
+    
     function zoomProfile(imgSrc) {
         const modalImg = document.getElementById('modalProfileImg');
         if (modalImg && imgSrc) {
@@ -498,20 +491,16 @@
         }
     }
 
-    // ========================================================
-    // INISIALISASI TOOLTIP (OTOMATIS HILANG SAAT DIKLIK)
-    // ========================================================
     const tooltipTriggerList = document.querySelectorAll('.auto-hide-tooltip');
     const allTooltips = [];
 
     tooltipTriggerList.forEach(el => {
         const tooltip = new bootstrap.Tooltip(el, {
-            trigger: 'hover' // Di PC muncul saat hover
+            trigger: 'hover' 
         });
         allTooltips.push(tooltip);
 
         let timer = null;
-        // Saat diklik / disentuh di HP: muncul lalu otomatis hilang
         el.addEventListener('click', function () {
             allTooltips.forEach(t => { if (t !== tooltip) t.hide(); });
 
@@ -529,9 +518,6 @@
         new bootstrap.Tooltip(btn, { trigger: 'hover' });
     });
 
-    // ========================================================
-    // DARK / LIGHT THEME TOGGLE
-    // ========================================================
     const htmlElement = document.documentElement;
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeIcon = document.getElementById('themeIcon');
